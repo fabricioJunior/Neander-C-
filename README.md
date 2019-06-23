@@ -5,6 +5,8 @@ O  simulador  deve  simular  o  comportamento  do  computador  Neander,  ler  o 
 
 ## Instruções 
 end == ENDEREÇO
+
+
 Código|Instrução|Operação.
 ------|---------|-----------:
 0000 	|NOP 	    | Nenhuma operação.

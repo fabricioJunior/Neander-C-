@@ -17,6 +17,7 @@ namespace Neander.Instrucoes
         }
         public override void Run(int Index)
         {
+            Maquina.Acessos++;
             if (Maquina.Acumulador == 00)
             {
                 Maquina.ProximaInstrucao(proximoByte(Index) - 1);

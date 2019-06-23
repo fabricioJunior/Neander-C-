@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Neander.Instrucoes
 {
@@ -17,7 +18,8 @@ namespace Neander.Instrucoes
         }
         public override void Run(int Index)
         {
-            ///Basta não fazer nada 
+            MessageBox.Show("FIM DA EXECUÇÃO");
+            Maquina.PC = 255;
         }
     }
 }

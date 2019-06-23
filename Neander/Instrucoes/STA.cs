@@ -29,6 +29,7 @@ namespace Neander.Instrucoes
         /// <param name="Valor"></param>
         private void AtualizarMemoria(byte Valor)
         {
+            
             IInstrucoes source = Maquina.GetInstrucoes(Valor);
             if (Maquina.GetInstrucoes(Valor) is NOP)
             {

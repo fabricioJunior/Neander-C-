@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Neander.Instrucoes;
-
+using System.Windows.Forms;
 namespace Neander
 {
     public static class Maquina
@@ -31,15 +31,35 @@ namespace Neander
         /// Método de controle de execução de comandos 
         /// </summary>
         /// <param name="index"></param>
-        public static void ProximaInstrucao(int index) {
+        public static void ProximaInstrucao(int index, bool n = false) {
             PC = index + 1;
-            if (PassoaPasso)
+            if (!PassoaPasso)
             { 
-                if (instrucoes.Count < PC)
+                if (instrucoes.Count > PC)
                 {
                     instrucoes[PC].Run(PC);
                 }
+                else
+                {
+                    MessageBox.Show("FIM DA EXECUÇÃO");
+                }
             }
+            if (!n)
+            {
+                Maquina.Negativo = false;
+            }
+        }
+        /// <summary>
+        /// Zera PC e o Acumulador 
+        /// </summary>
+        public static void Reset()
+        {
+            Acumulador = 0;
+            Negativo = false;
+            instrucao = 0;
+            instrucoesCount = 0;
+            Acessos = 0;
+            PC = 0;
         }
         /// <summary>
         /// Retorna um mnemônico  a parti do seu código decimal 
@@ -183,22 +203,32 @@ namespace Neander
         }
         public bool Leitura()
         {
-            if (Diretorio == null || NomeDoArquivo == null) {
-                throw new ArgumentNullException("Informe diretorio!");
-            }
-            int x = 0;
-            while (NomeDoArquivo[x] != '.')
+            try
             {
-                x++;
+                if (Diretorio == null || NomeDoArquivo == null)
+                {
+                    throw new ArgumentNullException("Informe diretorio!");
+                }
+                int x = 0;
+                while (NomeDoArquivo[x] != '.')
+                {
+                    x++;
+                }
+                limite = x;
+                string dadosSource = NomeDoArquivo.Substring(0, x) + ".dados";
+                string diretorio = Diretorio.Replace(NomeDoArquivo, "");
+                if (!File.Exists(diretorio + dadosSource))
+                {
+                    return false;
+                }
+                Mnemonicos = File.ReadAllLines(Diretorio);
+                Dados = File.ReadAllLines(diretorio + dadosSource);
             }
-            limite = x;
-            string dadosSource = NomeDoArquivo.Substring(0, x) + ".dados";
-            string diretorio = Diretorio.Replace(NomeDoArquivo,"");
-            if (!File.Exists(diretorio + dadosSource)) {
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
                 return false;
             }
-            Mnemonicos = File.ReadAllLines(Diretorio);
-            Dados = File.ReadAllLines(diretorio + dadosSource);
             return true;
         }
         public void Montar() {

@@ -18,10 +18,9 @@ namespace Neander.Instrucoes
         public override void Run(int Index)
         {
             Maquina.Negativo = true;
-            Maquina.ProximaInstrucao(Index);
+            Maquina.ProximaInstrucao(Index,true);
             AtualizarInfos();
         }
-       
        
     }
 }

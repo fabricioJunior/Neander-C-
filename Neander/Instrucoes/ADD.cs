@@ -21,6 +21,7 @@ namespace Neander.Instrucoes
             if (Maquina.Negativo)
             { 
                 Maquina.Acumulador -= Maquina.instrucoes[proximoByte(Index)].Dado;
+               
             }
             else
             {

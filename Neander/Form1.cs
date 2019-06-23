@@ -18,11 +18,13 @@ namespace Neander
         Montador montador;
         Interpretador Interpretador;
         ByteViewer bv = new ByteViewer();
+
         public Form1()
         {
             InitializeComponent();
             montador = new Montador();
             Interpretador = new Interpretador();
+            bv.Dock = DockStyle.Fill;
             groupBox.Controls.Add(bv);
         }
 
@@ -33,6 +35,7 @@ namespace Neander
                 PathText.Text = FileSource.FileName;
                 montador.Diretorio = FileSource.FileName;
                 montador.NomeDoArquivo = FileSource.SafeFileName;
+                richTextBox.Lines = File.ReadAllLines(FileSource.FileName);
                 MontarStart.Enabled = true;
                 try
                 {
@@ -57,7 +60,24 @@ namespace Neander
                 }
                 else
                 {
-                    MessageBox.Show("Sucesso!");
+                    if (MessageBox.Show("Sucesso! Deseja carrega o arquivo na memoria ?", "", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                       
+                        PathTextInterpretado.Text = montador.Diretorio + ".mem";
+                        Interpretador.Diretorio = montador.Diretorio + ".mem";
+                        InterpretaStart.Enabled = true;
+                        try
+                        {
+
+                            bv.SetFile(montador.Diretorio + ".mem"); // or SetBytes
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Não foi possivel abrir o arquivo:" + ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        tabControl1.SelectedTab = tabPage2;
+                        InterpretaStart_Click(null,null);
+                    }
                 }
             }
             else
@@ -69,15 +89,16 @@ namespace Neander
 
         private void SourceFileButtonInter_Click(object sender, EventArgs e)
         {
-            if (FileSource.ShowDialog() == DialogResult.OK)
+            if (FileMemSource.ShowDialog() == DialogResult.OK)
             {
-                PathTextInterpretado.Text = FileSource.FileName;
-                Interpretador.Diretorio = FileSource.FileName;
+                PathTextInterpretado.Text = FileMemSource.FileName;
+                Interpretador.Diretorio = FileMemSource.FileName;
                 InterpretaStart.Enabled = true;
+              
                 try
                 {
                  
-                    bv.SetFile(FileSource.FileName); // or SetBytes
+                    bv.SetFile(FileMemSource.FileName); // or SetBytes
                    
                 }
                 catch (Exception ex)
@@ -98,10 +119,14 @@ namespace Neander
         }
         private void Atualizar()
         {
+            ///Atualiza as informções basicas 
             AcLabel.Text = Maquina.Acumulador.ToString();
             PcLabel.Text = Maquina.PC.ToString();
             AcessoLabel.Text = Maquina.Acessos.ToString();
+            Ntext.Text = Convert.ToString(Maquina.Negativo);
+            Ztext.Text = Convert.ToString(Maquina.Acumulador == 0);
             InstrucoesLabel.Text = Maquina.instrucoes[Maquina.PC].Mnemonico.ToString();
+            ///Atualizar os grids 
             Comandos.Rows.Clear();
             memoriaGrid.Rows.Clear();
             for (int x = 0; x < Maquina.instrucoes.Count; x++)
@@ -109,29 +134,26 @@ namespace Neander
                 Comandos.Rows.Add(x, Maquina.instrucoes[x].Mnemonico, Maquina.instrucoes[x].Dado);
                 memoriaGrid.Rows.Add(x, Maquina.instrucoes[x].Dado);
             }
-            Ntext.Text = Convert.ToString(Maquina.Negativo);
-            Ztext.Text = Convert.ToString(Maquina.Acumulador == 0);
             Comandos.Rows[Maquina.PC].Selected = true;
             Comandos.FirstDisplayedScrollingRowIndex = Maquina.PC;
-            memoriaGrid.Rows[Maquina.PC].Selected = true;
-            memoriaGrid.FirstDisplayedScrollingRowIndex = Maquina.PC;
+            if (Maquina.instrucoes[Maquina.PC].Endereco)
+            {   
+                int end = Maquina.instrucoes[Maquina.PC + 1].Dado;
+                memoriaGrid.Rows[end].Selected = true;
+                memoriaGrid.FirstDisplayedScrollingRowIndex = Maquina.instrucoes[Maquina.PC+1].Dado;
+         
+            }
+         
         }
         
         private void PassoaPassoButton_Click(object sender, EventArgs e)
         {
+            Maquina.PassoaPasso = true;
             Maquina.instrucoes[Maquina.PC].Run(Maquina.PC);
             Atualizar();
         }
 
-        private void Label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void RodaButton_Click(object sender, EventArgs e)
         {

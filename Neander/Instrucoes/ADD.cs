@@ -18,16 +18,11 @@ namespace Neander.Instrucoes
         public override void Run(int Index)
         {
             Maquina.Acessos++;
-            if (Maquina.Negativo)
-            { 
-                Maquina.Acumulador -= Maquina.instrucoes[proximoByte(Index)].Dado;
-               
-            }
-            else
-            {
-                byte temp = Maquina.instrucoes[proximoByte(Index)].Dado;
-                Maquina.Acumulador += temp;
-            }
+           
+          
+            byte temp = Maquina.instrucoes[proximoByte(Index)].Dado;
+            Maquina.Acumulador += temp;
+            
             Maquina.ProximaInstrucao(Index);
         }
     }

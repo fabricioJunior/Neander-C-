@@ -35,18 +35,20 @@
             this.FileSource = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
             this.MensagemDoMontadoBox = new System.Windows.Forms.RichTextBox();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.ResetButton = new System.Windows.Forms.Button();
             this.Ztext = new System.Windows.Forms.Label();
             this.Ntext = new System.Windows.Forms.Label();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.RodaButton = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
             this.memoriaGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,8 +70,7 @@
             this.Endereço = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mnemônico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ResetButton = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
+            this.FileMemSource = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -118,14 +119,19 @@
             this.MontarStart.UseVisualStyleBackColor = true;
             this.MontarStart.Click += new System.EventHandler(this.MontarStart_Click);
             // 
+            // FileSource
+            // 
+            this.FileSource.Filter = "Mnemônicos|*.mns";
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1064, 609);
+            this.tabControl1.Size = new System.Drawing.Size(1088, 633);
             this.tabControl1.TabIndex = 19;
             // 
             // tabPage1
@@ -142,10 +148,20 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1056, 583);
+            this.tabPage1.Size = new System.Drawing.Size(1080, 607);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Montador";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(868, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(182, 16);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "By: Fabricio Junior (UFC-Sobral)";
             // 
             // MensagemDoMontadoBox
             // 
@@ -182,10 +198,10 @@
             this.label8.Size = new System.Drawing.Size(291, 23);
             this.label8.TabIndex = 4;
             this.label8.Text = "Carrega Mnemônicos(.mnp)";
-            this.label8.Click += new System.EventHandler(this.Label8_Click);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.ResetButton);
             this.tabPage2.Controls.Add(this.Ztext);
             this.tabPage2.Controls.Add(this.Ntext);
@@ -193,7 +209,6 @@
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.RodaButton);
-            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.memoriaGrid);
             this.tabPage2.Controls.Add(this.InterpretaStart);
             this.tabPage2.Controls.Add(this.PathTextInterpretado);
@@ -213,17 +228,38 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1056, 583);
+            this.tabPage2.Size = new System.Drawing.Size(1080, 607);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Simulador";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.TabPage2_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(579, 80);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(117, 25);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "Programa";
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.Enabled = false;
+            this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ResetButton.Location = new System.Drawing.Point(423, 167);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(143, 25);
+            this.ResetButton.TabIndex = 42;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // Ztext
             // 
             this.Ztext.AutoSize = true;
             this.Ztext.Font = new System.Drawing.Font("Century", 12.75F, System.Drawing.FontStyle.Bold);
-            this.Ztext.Location = new System.Drawing.Point(288, 124);
+            this.Ztext.Location = new System.Drawing.Point(281, 148);
             this.Ztext.Name = "Ztext";
             this.Ztext.Size = new System.Drawing.Size(72, 21);
             this.Ztext.TabIndex = 41;
@@ -233,7 +269,7 @@
             // 
             this.Ntext.AutoSize = true;
             this.Ntext.Font = new System.Drawing.Font("Century", 12.75F, System.Drawing.FontStyle.Bold);
-            this.Ntext.Location = new System.Drawing.Point(288, 83);
+            this.Ntext.Location = new System.Drawing.Point(281, 107);
             this.Ntext.Name = "Ntext";
             this.Ntext.Size = new System.Drawing.Size(72, 21);
             this.Ntext.TabIndex = 40;
@@ -241,9 +277,9 @@
             // 
             // groupBox
             // 
-            this.groupBox.Location = new System.Drawing.Point(13, 200);
+            this.groupBox.Location = new System.Drawing.Point(13, 248);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(555, 377);
+            this.groupBox.Size = new System.Drawing.Size(553, 351);
             this.groupBox.TabIndex = 39;
             this.groupBox.TabStop = false;
             // 
@@ -251,7 +287,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(249, 121);
+            this.label12.Location = new System.Drawing.Point(242, 145);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 25);
             this.label12.TabIndex = 38;
@@ -261,7 +297,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(245, 83);
+            this.label11.Location = new System.Drawing.Point(238, 107);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 25);
             this.label11.TabIndex = 37;
@@ -271,23 +307,13 @@
             // 
             this.RodaButton.Enabled = false;
             this.RodaButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.RodaButton.Location = new System.Drawing.Point(435, 134);
+            this.RodaButton.Location = new System.Drawing.Point(423, 105);
             this.RodaButton.Name = "RodaButton";
             this.RodaButton.Size = new System.Drawing.Size(143, 25);
             this.RodaButton.TabIndex = 36;
             this.RodaButton.Text = "Rodar";
             this.RodaButton.UseVisualStyleBackColor = true;
             this.RodaButton.Click += new System.EventHandler(this.RodaButton_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(430, 75);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(123, 25);
-            this.label10.TabIndex = 35;
-            this.label10.Text = "Comandos";
             // 
             // memoriaGrid
             // 
@@ -297,10 +323,10 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn3});
             this.memoriaGrid.GridColor = System.Drawing.SystemColors.ControlLightLight;
-            this.memoriaGrid.Location = new System.Drawing.Point(869, 116);
+            this.memoriaGrid.Location = new System.Drawing.Point(869, 105);
             this.memoriaGrid.Name = "memoriaGrid";
             this.memoriaGrid.RowHeadersVisible = false;
-            this.memoriaGrid.Size = new System.Drawing.Size(181, 461);
+            this.memoriaGrid.Size = new System.Drawing.Size(181, 492);
             this.memoriaGrid.TabIndex = 34;
             // 
             // dataGridViewTextBoxColumn1
@@ -318,7 +344,7 @@
             // 
             this.InterpretaStart.Enabled = false;
             this.InterpretaStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.InterpretaStart.Location = new System.Drawing.Point(432, 34);
+            this.InterpretaStart.Location = new System.Drawing.Point(423, 52);
             this.InterpretaStart.Name = "InterpretaStart";
             this.InterpretaStart.Size = new System.Drawing.Size(136, 23);
             this.InterpretaStart.TabIndex = 32;
@@ -328,16 +354,17 @@
             // 
             // PathTextInterpretado
             // 
-            this.PathTextInterpretado.Location = new System.Drawing.Point(93, 36);
+            this.PathTextInterpretado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.PathTextInterpretado.Location = new System.Drawing.Point(98, 52);
             this.PathTextInterpretado.Name = "PathTextInterpretado";
             this.PathTextInterpretado.ReadOnly = true;
-            this.PathTextInterpretado.Size = new System.Drawing.Size(333, 20);
+            this.PathTextInterpretado.Size = new System.Drawing.Size(319, 23);
             this.PathTextInterpretado.TabIndex = 30;
             // 
             // SourceFileButtonInter
             // 
             this.SourceFileButtonInter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SourceFileButtonInter.Location = new System.Drawing.Point(12, 36);
+            this.SourceFileButtonInter.Location = new System.Drawing.Point(17, 52);
             this.SourceFileButtonInter.Name = "SourceFileButtonInter";
             this.SourceFileButtonInter.Size = new System.Drawing.Size(75, 23);
             this.SourceFileButtonInter.TabIndex = 31;
@@ -348,18 +375,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Century", 20.75F, System.Drawing.FontStyle.Bold);
             this.label2.Location = new System.Drawing.Point(8, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 25);
+            this.label2.Size = new System.Drawing.Size(138, 33);
             this.label2.TabIndex = 33;
-            this.label2.Text = "Memoria";
+            this.label2.Text = "Memória";
             // 
             // passoApassoButton
             // 
             this.passoApassoButton.Enabled = false;
             this.passoApassoButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.passoApassoButton.Location = new System.Drawing.Point(435, 103);
+            this.passoApassoButton.Location = new System.Drawing.Point(423, 136);
             this.passoApassoButton.Name = "passoApassoButton";
             this.passoApassoButton.Size = new System.Drawing.Size(143, 25);
             this.passoApassoButton.TabIndex = 27;
@@ -371,7 +398,7 @@
             // 
             this.InstrucoesLabel.AutoSize = true;
             this.InstrucoesLabel.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstrucoesLabel.Location = new System.Drawing.Point(145, 124);
+            this.InstrucoesLabel.Location = new System.Drawing.Point(143, 144);
             this.InstrucoesLabel.Name = "InstrucoesLabel";
             this.InstrucoesLabel.Size = new System.Drawing.Size(25, 25);
             this.InstrucoesLabel.TabIndex = 26;
@@ -381,7 +408,7 @@
             // 
             this.AcessoLabel.AutoSize = true;
             this.AcessoLabel.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AcessoLabel.Location = new System.Drawing.Point(145, 83);
+            this.AcessoLabel.Location = new System.Drawing.Point(143, 107);
             this.AcessoLabel.Name = "AcessoLabel";
             this.AcessoLabel.Size = new System.Drawing.Size(25, 25);
             this.AcessoLabel.TabIndex = 25;
@@ -391,7 +418,7 @@
             // 
             this.PcLabel.AutoSize = true;
             this.PcLabel.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PcLabel.Location = new System.Drawing.Point(288, 159);
+            this.PcLabel.Location = new System.Drawing.Point(143, 185);
             this.PcLabel.Name = "PcLabel";
             this.PcLabel.Size = new System.Drawing.Size(25, 25);
             this.PcLabel.TabIndex = 24;
@@ -401,7 +428,7 @@
             // 
             this.AcLabel.AutoSize = true;
             this.AcLabel.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AcLabel.Location = new System.Drawing.Point(145, 159);
+            this.AcLabel.Location = new System.Drawing.Point(281, 185);
             this.AcLabel.Name = "AcLabel";
             this.AcLabel.Size = new System.Drawing.Size(25, 25);
             this.AcLabel.TabIndex = 23;
@@ -411,27 +438,27 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(7, 124);
+            this.label5.Location = new System.Drawing.Point(8, 144);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(132, 25);
+            this.label5.Size = new System.Drawing.Size(142, 25);
             this.label5.TabIndex = 22;
-            this.label5.Text = "Instruções:";
+            this.label5.Text = "Mnemônico:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(48, 83);
+            this.label6.Location = new System.Drawing.Point(44, 107);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(91, 25);
+            this.label6.Size = new System.Drawing.Size(102, 25);
             this.label6.TabIndex = 21;
-            this.label6.Text = "Acesso:";
+            this.label6.Text = "Acessos:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(232, 159);
+            this.label4.Location = new System.Drawing.Point(96, 185);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 25);
             this.label4.TabIndex = 20;
@@ -441,7 +468,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(88, 159);
+            this.label3.Location = new System.Drawing.Point(224, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 25);
             this.label3.TabIndex = 19;
@@ -451,11 +478,11 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(864, 75);
+            this.label7.Location = new System.Drawing.Point(864, 77);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 25);
+            this.label7.Size = new System.Drawing.Size(78, 25);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Memoria";
+            this.label7.Text = "Dados";
             // 
             // Comandos
             // 
@@ -466,10 +493,10 @@
             this.Mnemônico,
             this.Dado});
             this.Comandos.GridColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Comandos.Location = new System.Drawing.Point(584, 116);
+            this.Comandos.Location = new System.Drawing.Point(584, 105);
             this.Comandos.Name = "Comandos";
             this.Comandos.RowHeadersVisible = false;
-            this.Comandos.Size = new System.Drawing.Size(279, 461);
+            this.Comandos.Size = new System.Drawing.Size(279, 494);
             this.Comandos.TabIndex = 28;
             // 
             // Endereço
@@ -488,27 +515,9 @@
             this.Dado.HeaderText = "Dado";
             this.Dado.Name = "Dado";
             // 
-            // ResetButton
+            // FileMemSource
             // 
-            this.ResetButton.Enabled = false;
-            this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ResetButton.Location = new System.Drawing.Point(435, 165);
-            this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(143, 25);
-            this.ResetButton.TabIndex = 42;
-            this.ResetButton.Text = "Reset";
-            this.ResetButton.UseVisualStyleBackColor = true;
-            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(868, 3);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(182, 16);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "By: Fabricio Junior (UFC-Sobral)";
+            this.FileMemSource.Filter = "Memoria|*.mem";
             // 
             // Form1
             // 
@@ -518,7 +527,9 @@
             this.ClientSize = new System.Drawing.Size(1088, 633);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "NeanderSharp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "NeanderC#";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -563,7 +574,6 @@
         private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.RichTextBox MensagemDoMontadoBox;
         private System.Windows.Forms.Button RodaButton;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView memoriaGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -574,6 +584,8 @@
         private System.Windows.Forms.Label Ntext;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.OpenFileDialog FileMemSource;
+        private System.Windows.Forms.Label label14;
     }
 }
 

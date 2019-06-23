@@ -32,7 +32,8 @@ namespace Neander
         /// </summary>
         /// <param name="index"></param>
         public static void ProximaInstrucao(int index, bool n = false) {
-            PC = index + 1;
+
+            PC = index + 1 + Convert.ToInt32(Maquina.instrucoes[PC].Endereco);
             if (!PassoaPasso)
             { 
                 if (instrucoes.Count > PC)
@@ -115,17 +116,7 @@ namespace Neander
             for (int x = 0, y = 0; x <= 255; x++, y++)
             {
                 Instrucoes.Add(Maquina.GetInstrucoes(memoria[posicao(x)]));
-                //backup
-                //if (memoria[posicao(x)] == 0 || !decimaisConhecidos.Contains(memoria[posicao(x)]))
-                //{
-                //    Instrucoes.Add(new NOP() { Valor = memoria[posicao(x)]});
-                //}
-                //else
-                //{
-                //    var novoSource = from a in Maquina.instrucoesConhecidas where a.Decimal == memoria[posicao(x)] select a;
-                //    var novo = novoSource.ToList()[0].Clone();
-                //    Instrucoes.Add(novo);
-                //}
+   
             }
             fileStream.Close();
         }
@@ -285,6 +276,7 @@ namespace Neander
         /// <returns></returns>
         private List<IInstrucoes> LerInstrucoes()
         {
+            ErrosDeMontagem.Clear();
             List<IInstrucoes> retorno = new List<IInstrucoes>();
             List<string> mnemonicosConhecidos = new List<string>();
             ///Carega Mnemônicos conhecidos no formato de string
@@ -327,6 +319,11 @@ namespace Neander
                             {
                                 ErrosDeMontagem.Add("Linha " + x + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
                             }
+                        }
+                        else
+                        {
+                            novaInstrucao.IndiceNaMemoria = Convert.ToByte(temp[0]);
+                            retorno.Add(novaInstrucao.Clone());
                         }
                     }
                     else

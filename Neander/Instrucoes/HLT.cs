@@ -13,7 +13,7 @@ namespace Neander.Instrucoes
         {
             @decimal = 240;
             end = false;
-            mnemonico = "HTL";
+            mnemonico = "HLT";
             Dado = 240;
         }
         public override void Run(int Index)

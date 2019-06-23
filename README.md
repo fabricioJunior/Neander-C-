@@ -1,4 +1,4 @@
-# Montador e simulador Neander
+# Montador e simulador Neander(OBJETIVO)
 Desenvolver um montador do conjunto de instruções do Neander que recebe os mnemônicos e transforma no equivalente em binário. Nesse montador deve ser possível acessar essa saída, seja através de um arquivo ou interface.
 
 O  simulador  deve  simular  o  comportamento  do  computador  Neander,  ler  o código  gerado  pelo  montador  e  carregar  em  sua  memória como  mnemônico(Em  uma área  reservada  para  as  instruções). Em  cada  instrução  executada  deve  apresentar  uma indicação  da  instrução  em  execução,  o  resultado  do  acumuladore  do  PC,  bem  como  a modificação dos dados na memória (Em uma área reservada para os dados).Também deve apresentar as indicações de condição N e Z da ULA do Neander.

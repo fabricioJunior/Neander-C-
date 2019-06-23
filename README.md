@@ -15,7 +15,7 @@ Código|Instrução|Operação.
 0011 	|ADD end | Soma o conteúdo do endereço “end” da memória ao acumulador.
 0100 	|OR  end | Efetua operação lógica “OU” do conteúdo do endereço “end” da memória ao acumulador.
 0101 	|AND end | Efetua operação lógica “E” do conteúdo do endereço “end” da memória ao acumulador.
-0110 	|NOT 	   | Transforma o número em negativo até a proxima instrução.
+0110 	|NOT 	   | Inverte todos os bits do acumulador.
 1000 	|JMP end | Desvio incondicional para o endereço “end” da memória.
 1001 	|JN  end | Desvio condicional, se “N=1”, para o endereço “end” da memória.
 1010 	|JZ  end | Desvio condicional, se “Z=1”, para o endereço “end” da memória.

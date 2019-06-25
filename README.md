@@ -7,7 +7,7 @@ O  simulador  deve  simular  o  comportamento  do  computador  Neander,  ler  o 
 end == ENDEREÇO
 
 
-Código|Instrução|Operação.
+Decimal|Instrução|Operação.
 ------|---------|-----------:
 0	  |NOP 	    | Nenhuma operação.
 16 	|STA end | Armazena acumulador no endereço “end” da memória.

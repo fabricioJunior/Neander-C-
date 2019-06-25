@@ -23,9 +23,8 @@ namespace Neander
         /// </summary>
         public static byte Acumulador;
         public static bool Negativo;
-        public static byte instrucao;
         public static int instrucoesCount;
-        public static int Acessos;
+        public static int AcessosMemoria;//Acessos a memoria
         public static int PC;
         /// <summary>
         /// Método de controle de execução de comandos 
@@ -57,9 +56,9 @@ namespace Neander
         {
             Acumulador = 0;
             Negativo = false;
-            instrucao = 0;
+         
             instrucoesCount = 0;
-            Acessos = 0;
+            AcessosMemoria = 0;
             PC = 0;
         }
         /// <summary>
@@ -127,6 +126,7 @@ namespace Neander
         }
         /// <summary>
         /// Leitura dos bytes
+        /// https://social.msdn.microsoft.com/Forums/en-US/ab831d92-14ad-437e-9b03-102d90f44d22/read-hex-data-from-binary-file?forum=csharpgeneral
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="initialLength"></param>
@@ -187,19 +187,20 @@ namespace Neander
         public string Diretorio { get; set; }
         public string NomeDoArquivo { get; set; }
         public List<string> ErrosDeMontagem { get; set; }
-        private int limite;
+    
         public Montador()
         {
             ErrosDeMontagem = new List<string>();
         }
-        public bool Leitura()
+        public bool LeituraDosArquivos()
         {
+            if (Diretorio == null || NomeDoArquivo == null)
+            {
+                throw new ArgumentNullException("Informe diretorio!");
+            }
             try
             {
-                if (Diretorio == null || NomeDoArquivo == null)
-                {
-                    throw new ArgumentNullException("Informe diretorio!");
-                }
+                int limite;
                 int x = 0;
                 while (NomeDoArquivo[x] != '.')
                 {
@@ -226,7 +227,6 @@ namespace Neander
             List<IInstrucoes> instrucoes =  LerInstrucoes();
             List<Dados> dados =  LerDados();
             List<int> posicoesDeDados = new List<int>();
-
             ///Inicializando array de byes no padrão neander
             byte[] data = new byte[516];
             data[0] = 3;
@@ -242,17 +242,6 @@ namespace Neander
                     data[posicao(novas.IndiceNaMemoria) + 2] = novas.Dado;
                 }
             }
-            //for (int x = 0, y = 0; x <= 256; x++,y++) {
-            //    if (instrucoes.Count > y)
-            //    {
-            //        data[posicao(x)] = instrucoes[y].Decimal;
-            //        if (instrucoes[y].END)
-            //        {
-            //            data[posicao(x+1)] = instrucoes[y].Valor;
-            //            x++;
-            //        }
-            //    }
-            //}
             ///adicionando os dados ao array 
             foreach (Dados da in dados)
             {
@@ -291,45 +280,53 @@ namespace Neander
                 ///Verifica linha em branco ou comentário 
                 if (atual != "" && atual[0] != ';')
                 {
-                    string[] temp = atual.Split(',');
-                    ///Verifica se o que foi digitado é um mnemônico
-                    // posição, mnemônico
-                    if (@byte(temp[0]) && mnemonicosConhecidos.Contains(temp[1]))
+                    try
                     {
-                        var novaInstrucao = (from a in Maquina.instrucoesConhecidas where a.Mnemonico == temp[1] select a).ToList()[0];
-                        if (novaInstrucao.Endereco)
+
+                        string[] temp = atual.Split(',');
+                        ///Verifica se o que foi digitado é um mnemônico
+                        // posição, mnemônico
+                        if (@byte(temp[0]) && mnemonicosConhecidos.Contains(temp[1]))
                         {
-                            try
+                            var novaInstrucao = (from a in Maquina.instrucoesConhecidas where a.Mnemonico == temp[1] select a).ToList()[0];
+                            if (novaInstrucao.Endereco)
                             {
-                                ///Verifica se existe um byte a ser modificado na proxíma linha
-                                if (@byte(Mnemonicos[x + 1]))
+                                try
                                 {
-                                    novaInstrucao.Dado = Convert.ToByte(Mnemonicos[x + 1]);
-                                    novaInstrucao.IndiceNaMemoria = Convert.ToByte(temp[0]);
-                                    retorno.Add( novaInstrucao.Clone());
-                                    x++;
+                                    ///Verifica se existe um byte a ser modificado na proxíma linha
+                                    if (@byte(Mnemonicos[x + 1]))
+                                    {
+                                        novaInstrucao.Dado = Convert.ToByte(Mnemonicos[x + 1]);
+                                        novaInstrucao.IndiceNaMemoria = Convert.ToByte(temp[0]);
+                                        retorno.Add(novaInstrucao.Clone());
+                                        x++;
+                                    }
+                                    else
+                                    {
+                                        ///Adiciona a lista de erros de montagem 
+                                        ErrosDeMontagem.Add("Linha " + (x + 1) + ":end esperado ->" + Mnemonicos[x + 1]);
+                                    }
                                 }
-                                else
+                                catch (Exception)
                                 {
-                                    ///Adiciona a lista de erros de montagem 
-                                    ErrosDeMontagem.Add("Linha " + (x + 1) + ":end esperado ->" + Mnemonicos[x + 1]);
+                                    ErrosDeMontagem.Add("Linha " + x + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
                                 }
                             }
-                            catch (Exception)
+                            else
                             {
-                                ErrosDeMontagem.Add("Linha " + x + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
+                                novaInstrucao.IndiceNaMemoria = Convert.ToByte(temp[0]);
+                                retorno.Add(novaInstrucao.Clone());
                             }
                         }
                         else
                         {
-                            novaInstrucao.IndiceNaMemoria = Convert.ToByte(temp[0]);
-                            retorno.Add(novaInstrucao.Clone());
+                            ///Adiciona a lista de erros de montagem
+                            ErrosDeMontagem.Add("Linha " + x + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
                         }
                     }
-                    else
-                    {   
-                        ///Adiciona a lista de erros de montagem
-                        ErrosDeMontagem.Add("Linha " + x  + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
+                    catch (Exception)
+                    {
+                        ErrosDeMontagem.Add("Linha " + x + ":Mnemônico desconhecido ->" + Mnemonicos[x]);
                     }
                 }
             }
@@ -344,29 +341,37 @@ namespace Neander
             List<Dados> retorno = new List<Dados>();
             for (int x = 0; x < Dados.Length; x++)
             {
-                string atual = Dados[x].Trim();
-                if (atual != "" && atual[0] != ';')
+                try
                 {
-                    string[] temp = atual.Split(',');
-                    if (temp.Length == 2)
-                    {    
-                        //// (posição na memoria),(byte)
-                        if (@byte(temp[0]) && @byte(temp[1]))
+                    string atual = Dados[x].Trim();
+                    if (atual != "" && atual[0] != ';')
+                    {
+                        string[] temp = atual.Split(',');
+                        if (temp.Length == 2)
                         {
-                            Dados novo = new Dados();
-                            novo.Posicao = Convert.ToInt32(temp[0]);
-                            novo.Valor = Convert.ToByte(temp[1]);
-                            retorno.Add(novo);
+                            //// (posição na memoria),(byte)
+                            if (@byte(temp[0]) && @byte(temp[1]))
+                            {
+                                Dados novo = new Dados();
+                                novo.Posicao = Convert.ToInt32(temp[0]);
+                                novo.Valor = Convert.ToByte(temp[1]);
+                                retorno.Add(novo);
+                            }
+                            else
+                            {
+                                ErrosDeMontagem.Add("Dados -> Linha " + (x) + ": Byte não localizado ->" + Dados[x]);
+                            }
                         }
                         else
                         {
-                            ErrosDeMontagem.Add("Dados -> Linha " + (x) + ": Byte não localizado ->" + Dados[x]);
+                            ErrosDeMontagem.Add("Dados -> Linha " + (x) + ": Sintaxe incorreta ->" + Dados[x]);
                         }
                     }
-                    else
-                    {
-                        ErrosDeMontagem.Add("Dados -> Linha " + (x) + ": Sintaxe incorreta ->" + Dados[x]);
-                    }
+                }
+                catch (Exception)
+                {
+
+                    ErrosDeMontagem.Add("Dados -> Linha " + (x) + ": Sintaxe incorreta ->" + Dados[x]);
                 }
             }
 

@@ -19,7 +19,7 @@ namespace Neander.Instrucoes
         public override void Run(int Index)
         {
             Maquina.Acumulador = Convert.ToByte(proximoByte(Index) & Maquina.Acumulador);
-            Maquina.Acessos++;
+            Maquina.AcessosMemoria++;
             Maquina.ProximaInstrucao(Index);
             AtualizarInfos();
         }

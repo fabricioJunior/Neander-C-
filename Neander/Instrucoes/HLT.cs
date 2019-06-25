@@ -20,6 +20,7 @@ namespace Neander.Instrucoes
         {
             MessageBox.Show("FIM DA EXECUÇÃO");
             Maquina.PC = 255;
+            Maquina.AcessosMemoria++;
         }
     }
 }

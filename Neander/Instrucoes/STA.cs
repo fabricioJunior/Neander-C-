@@ -19,7 +19,7 @@ namespace Neander.Instrucoes
         {
             AtualizarMemoria(proximoByte(Index));
             AtualizarInfos();
-            Maquina.Acessos++;
+            Maquina.AcessosMemoria++;
             Maquina.ProximaInstrucao(Index);
             
         }

@@ -183,7 +183,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century", 14.75F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(719, 115);
+            this.label9.Location = new System.Drawing.Point(676, 120);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(257, 23);
             this.label9.TabIndex = 7;
@@ -195,9 +195,9 @@
             this.label8.Font = new System.Drawing.Font("Century", 14.75F, System.Drawing.FontStyle.Bold);
             this.label8.Location = new System.Drawing.Point(6, 82);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(291, 23);
+            this.label8.Size = new System.Drawing.Size(289, 23);
             this.label8.TabIndex = 4;
-            this.label8.Text = "Carrega Mnemônicos(.mnp)";
+            this.label8.Text = "Carrega Mnemônicos(.mns)";
             // 
             // tabPage2
             // 

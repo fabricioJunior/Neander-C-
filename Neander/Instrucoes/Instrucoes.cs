@@ -24,7 +24,7 @@ namespace Neander.Instrucoes
         {
             if (Maquina.instrucoes.Count > index+1)
             {
-                Maquina.Acessos++;
+                Maquina.AcessosMemoria++;
                 return Maquina.instrucoes[index + 1].Dado;
             }
             return 0;
@@ -49,7 +49,7 @@ namespace Neander.Instrucoes
         protected void AtualizarInfos()
         {
             Maquina.instrucoesCount += Convert.ToInt32((Dado == 0));
-            Maquina.Acessos++;
+            Maquina.AcessosMemoria++;
         }
         /// <summary>
         /// Função auxiliares(Orientação a objetos)

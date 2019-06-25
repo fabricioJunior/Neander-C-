@@ -20,7 +20,8 @@ namespace Neander
         ByteViewer bv = new ByteViewer();
 
         public Form1()
-        {
+        {   
+
             InitializeComponent();
             montador = new Montador();
             Interpretador = new Interpretador();
@@ -50,7 +51,7 @@ namespace Neander
 
         private void MontarStart_Click(object sender, EventArgs e)
         {
-            if (montador.Leitura())
+            if (montador.LeituraDosArquivos())
             {
                 montador.Montar();
                 if (montador.ErrosDeMontagem.Count > 0)
@@ -67,7 +68,7 @@ namespace Neander
                         InterpretaStart.Enabled = true;
                         try
                         {
-
+                           
                             bv.SetFile(montador.Diretorio + ".mem"); // or SetBytes
 
                         }
@@ -122,7 +123,7 @@ namespace Neander
             ///Atualiza as informções basicas 
             AcLabel.Text = Maquina.Acumulador.ToString();
             PcLabel.Text = Maquina.PC.ToString();
-            AcessoLabel.Text = Maquina.Acessos.ToString();
+            AcessoLabel.Text = Maquina.AcessosMemoria.ToString();
             Ntext.Text = Convert.ToString(Maquina.Negativo);
             Ztext.Text = Convert.ToString(Maquina.Acumulador == 0);
             InstrucoesLabel.Text = Maquina.instrucoes[Maquina.PC].Mnemonico.ToString();
@@ -148,9 +149,14 @@ namespace Neander
         
         private void PassoaPassoButton_Click(object sender, EventArgs e)
         {
+            if (Maquina.PC == 255)
+            {
+                Maquina.PC = 0;
+            }
             Maquina.PassoaPasso = true;
             Maquina.instrucoes[Maquina.PC].Run(Maquina.PC);
             Atualizar();
+           
         }
 
       
